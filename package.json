@@ -1,0 +1,31 @@
+{
+  "name": "sp1r0s-website-builder",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sp1r0s/sp1r0s-website-builder.git"
+  },
+  "dependencies": {
+    "angular": "1.4.5",
+    "angular-bootstrap": "0.12.2",
+    "bootstrap": "3.3.6",
+    "particles.js": "2.0.0"
+  },
+  "devDependencies": {
+    "grunt-concat-css": "0.3.1",
+    "grunt-contrib-clean": "0.7.0",
+    "grunt-contrib-compress": "0.14.0",
+    "grunt-contrib-concat": "0.5.1",
+    "grunt-contrib-copy": "0.8.2",
+    "grunt-contrib-jshint": "0.11.0",
+    "grunt-contrib-uglify": "0.11.0",
+    "grunt-gh-pages": "1.0.0"
+  },
+  "engines": {
+    "node": ">=0.12.x"
+  },
+  "license": "MIT",
+  "scripts": {
+    "grunt-deploy": "grunt deploy --no-colour"
+  }
+}
