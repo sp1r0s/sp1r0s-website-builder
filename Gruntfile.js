@@ -18,37 +18,36 @@ module.exports = function(grunt) {
         options: {
             jshintrc: '.jshintrc',
         },
-        files: ['scripts/**/*.js']
+        files: ['website/scripts/**/*.js']
     },
-//    concat: {
-//      options: {
-//        separator: ';'
-//      },
-//      js: {
-//        src: [ 'scripts/**/*.js',
-//          'node_modules/angular/angular.min.js',
-//          'node_modules/angular-progress-arc/angular-progress-arc.min.js',
-//          'node_modules/bootstrap/dist/js/bootstrap.min.js'
-//        ],
-//        dest: 'dist/app.js'
-//      },
+    concat: {
+      options: {
+        separator: ';'
+      },
+      app: {
+        src: [
+          'website/scripts/**/*.js'
+        ],
+        dest: 'tmp/scripts/app.js'
+      }
 //      css: {
-//        src: [ 'scripts/**/*.css',
-//          'node_modules/bootstrap/dist/css/boostrap.min.css'
+//        src: [
+//          'website/**/*.css',
+//          'node_modules/bootstrap/dist/css/boostrap.css'
 //        ],
-//        dest: 'dist/styles/styles.css'
+//        dest: 'tmp/styles/styles.css'
 //      }
-//    },
-//    uglify: {
-//      dist: {
-//        files: {
-//          'dist/app.min.js': [ 'dist/app.js' ]
-//        },
-//        options: {
-//          mangle: false
-//        }
-//      }
-//    },
+    },
+    uglify: {
+      dist: {
+        files: {
+          'dist/scripts/app.min.js': [ 'tmp/scripts/app.js' ]
+        },
+        options: {
+          mangle: false
+        }
+      }
+    },
 //    compress: {
 //      dist: {
 //        options: {
@@ -83,17 +82,13 @@ module.exports = function(grunt) {
 //      }
 //    },
     copy: {
-      webapp: {
+      website: {
         files: [
-          {expand: true, src: ['index.html'], dest: 'dist/'},
-          {expand: true, src: ['sp1r0s.io-README.md'], dest: 'dist/',
-            rename: function(dest, src) {
-              return dest + src.substring(src.indexOf('-') + 1);
-            }
-          },
-          {expand: true, src: ['scripts/**'], dest: 'dist/'},
-          {expand: true, src: ['styles/**'], dest: 'dist/'},
-          {expand: true, src: ['resources/**'], dest: 'dist/'},
+          {expand: true, cwd: 'website/', src: ['index.html'], dest: 'dist/'},
+          {expand: true, cwd: 'website/', src: ['README.md'], dest: 'dist/'},
+          {expand: true, cwd: 'website/', src: ['scripts/**'], dest: 'dist/'},
+          {expand: true, cwd: 'website/', src: ['styles/**'], dest: 'dist/'},
+          {expand: true, cwd: 'website/', src: ['resources/**'], dest: 'dist/'},
           {expand: true, flatten: true, src: ['node_modules/angular/angular.min.js'], dest: 'dist/libs'},
           {expand: true, flatten: true, src: ['node_modules/angular-bootstrap/ui-bootstrap.min.js'], dest: 'dist/libs'},
           {expand: true, flatten: true, src: ['node_modules/particles.js/particles.js'], dest: 'dist/libs'},
@@ -117,7 +112,7 @@ module.exports = function(grunt) {
       src: '**/*'
     },
     clean: {
-      tmp: ['tmp/dir'],
+      tmp: ['tmp'],
       dist: ['dist']
     }
   });
@@ -125,14 +120,12 @@ module.exports = function(grunt) {
   grunt.registerTask('default', 'jshint');
   grunt.registerTask('release', [
     'clean:dist',
-//    'concat:js',
-//    'concat:css',
-//    'uglify:dist'
-    'compress:dist'
+    'concat:js',
+    'uglify:dist'
   ]);
   grunt.registerTask('deploy', [
     'clean',
-    'copy:webapp',
+    'copy:website',
     'gh-pages'
   ]);
 };
